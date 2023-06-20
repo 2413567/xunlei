@@ -106,8 +106,7 @@ def copy_folder(source_folder: str, destination_folder: str) -> bool:
     :param destination_folder:
     :return:
     """
-    this_leval = 0
-    first_level_directory = ''
+
     if os.path.isfile(source_folder):
         # 判断目标文件夹是否存在
         if not os.path.exists(destination_folder) and is_safe(destination_folder):
@@ -115,11 +114,7 @@ def copy_folder(source_folder: str, destination_folder: str) -> bool:
     elif os.path.isdir(source_folder):
         # 遍历文件夹
         for root, dirs, files in os.walk(source_folder):
-            this_leval += 1
-            # 如果是第一级，文件夹路径应该是：下载根目录/下载任务目录
-            if this_leval == 1:
-                first_level_directory = root
-            this_dir = root.replace(first_level_directory, destination_folder)
+            this_dir = root.replace(source_dir, to_dir)
             print(this_dir)
 
             if not os.path.exists(this_dir):
@@ -158,10 +153,8 @@ def is_safe(this_path: str) -> bool:
         return False
 
 
-def main():
-    # 两个文件夹
-    source_dir = 'Z:\下载'
-    to_dir = 'Y:'
+def main(source_dir, to_dir):
+
 
     # 获取任务列表
     task_list = get_task_list(source_dir)
@@ -193,7 +186,10 @@ def main():
 
 if __name__ == '__main__':
     while True:
-        main()
+        # 两个文件夹
+        source_dir = 'Z:\下载'
+        to_dir = 'Y:'
+        main(source_dir, to_dir)
         time.sleep(20)
         print(1)
 

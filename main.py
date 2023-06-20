@@ -118,8 +118,9 @@ def copy_folder(source_folder: str, destination_folder: str) -> bool:
             this_leval += 1
             # 如果是第一级，文件夹路径应该是：下载根目录/下载任务目录
             if this_leval == 1:
-                first_level_directory = os.path.split(root)[0]
-            this_dir = root.replace(first_level_directory, source_folder)
+                first_level_directory = root
+            this_dir = root.replace(first_level_directory, destination_folder)
+            print(this_dir)
 
             if not os.path.exists(this_dir):
                 # 创建多级目录
@@ -132,6 +133,7 @@ def copy_folder(source_folder: str, destination_folder: str) -> bool:
                     shutil.copyfile(os.path.join(root, file), os.path.join(this_dir, file))
     else:
         # 其他情况
+        print(1)
         return False
     return True
 
